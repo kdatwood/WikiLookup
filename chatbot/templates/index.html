@@ -11,11 +11,47 @@
     />
   </head>
   <body>
-    <h1>Welcome to WikiLookup Chatbot</h1>
-    <p>Testing the chatbot</p>
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-outline-primary">Primary</button>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h1>WikiLookup</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="chat-log">
+            <!-- Chat log messages will be displayed here -->
+            <p>Hi, I'm WikiLookup. Ask me a question!</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="chatbot-log">
+            <!-- Chatbot log messages will be displayed here -->
+            <p>Testing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <form>
+          <div class="form-group">
+            <label for="question">Type your question:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="question"
+              placeholder="Enter your question..."
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </footer>
     <script type="text/javascript" src="{% static 'js/bootstrap.js'%}"></script>
-    <
   </body>
 </html>
