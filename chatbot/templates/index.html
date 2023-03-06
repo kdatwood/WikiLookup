@@ -9,8 +9,6 @@
       type="text/css"
       href="{% static 'css/bootstrap.css'%}"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="{% static 'js/index.js'%}"></script>
   </head>
   <body>
     <div class="container">
@@ -24,36 +22,37 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <div id="chat-log">
+          <div id="chat-log" style="height: 400px; overflow-y: scroll">
             <!-- Chat log messages will be displayed here -->
-            <p>Hi, I'm WikiLookup. Ask me a question!</p>
+            <p>
+              <strong>Chatbot:</strong> Hi, I'm WikiLookup. I can help you find
+              information on Wikipedia. Ask me a question!
+            </p>
           </div>
+
+          <form>
+            <div class="form-group">
+              <label for="question">Type your question:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="question"
+                placeholder="Enter your question..."
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
         <div class="col-md-6">
-          <div id="chatbot-log">
+          <div id="chatbot-log" style="height: 400px; overflow-y: scroll">
             <!-- Chatbot log messages will be displayed here -->
-            <p>Testing</p>
+            <p><strong>User:</strong> Hi</p>
           </div>
         </div>
       </div>
     </div>
 
-    <footer class="footer">
-      <div class="container">
-        <form>
-          <div class="form-group">
-            <label for="question">Type your question:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="question"
-              placeholder="Enter your question..."
-            />
-          </div>
-          <button type="submit" id="submitQuestion" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    </footer>
+    <script type="text/javascript" src="{% static 'js/script.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js'%}"></script>
   </body>
 </html>
