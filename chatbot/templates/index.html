@@ -9,6 +9,8 @@
       type="text/css"
       href="{% static 'css/bootstrap.css'%}"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static 'js/index.js'%}"></script>
   </head>
   <body>
     <div class="container">
@@ -48,7 +50,7 @@
               placeholder="Enter your question..."
             />
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" id="submitQuestion" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </footer>
