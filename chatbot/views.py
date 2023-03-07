@@ -1,4 +1,4 @@
-import requests
+import wikipedia
 from django.shortcuts import render
 
 
@@ -8,26 +8,10 @@ def my_view(request):
         # get the user's question from the form
         question = request.POST['question']
 
-        # set up the parameters for the API request
-        params = {
-            "action": "query",
-            "format": "json",
-            "prop": "extracts",
-            "titles": question,
-            "exsentences": 3,
-            "explaintext": True,
-        }
-
-        # make the API request
-        response = requests.get(
-            "https://en.wikipedia.org/w/api.php", params=params)
-
-        # get the page content from the API response
-        page_content = response.json()["query"]["pages"]
-
-        # extract the page's extract
-        for page_id in page_content:
-            extract = page_content[page_id]["extract"]
+        # search for the answer on Wikipedia
+        wikipedia.set_lang("en")  # set language to English
+        page = wikipedia.page(question)
+        extract = page.summary
 
         # pass the extract to the template
         return render(request, 'index.html', {'extract': extract})

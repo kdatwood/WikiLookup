@@ -7,7 +7,12 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'css/bootstrap.css'%}"
+      href="{% static 'css/bootstrap.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
     />
   </head>
   <body>
@@ -26,7 +31,7 @@
             <!-- Chatbot log messages will be displayed here -->
           </div>
 
-          <form>
+          <form onsubmit="return chatbot(event)">
             <div class="form-group">
               <label for="question">Type your question:</label>
               <input
@@ -36,6 +41,7 @@
                 placeholder="Enter your question..."
               />
             </div>
+            <br />
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
@@ -47,7 +53,10 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="{% static 'js/script.js'%}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/bootstrap.js' %}"
+    ></script>
   </body>
 </html>
