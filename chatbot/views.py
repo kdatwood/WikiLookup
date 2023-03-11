@@ -1,20 +1,26 @@
-import wikipedia
 from django.shortcuts import render
+import openai
 
 
-def my_view(request):
-    # check if the form was submitted
+openai.api_key = "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"
+
+
+def chatbot(prompt):
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    return response.choices[0].text.strip()
+
+
+def chatbot_view(request):
+    chatbot_response = ""
     if request.method == 'POST':
-        # get the user's question from the form
-        question = request.POST['question']
-
-        # search for the answer on Wikipedia
-        wikipedia.set_lang("en")  # set language to English
-        page = wikipedia.page(question)
-        extract = page.summary
-
-        # pass the extract to the template
-        return render(request, 'index.html', {'extract': extract})
-
-    # if the form was not submitted, just render the template
-    return render(request, 'index.html')
+        question = request.POST.get('question')
+        chatbot_response = chatbot(question)
+    return render(request, 'index.html', {'chatbot_response': chatbot_response})
