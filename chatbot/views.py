@@ -1,8 +1,16 @@
 from django.shortcuts import render
 import openai
+from dotenv import load_dotenv
+import os
+
+# load the environment variables
+load_dotenv()
+
+# get the API key from the environment variables
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 
-openai.api_key = ""
+openai.api_key = OPENAI_API_KEY
 
 
 def chatbot(prompt):
