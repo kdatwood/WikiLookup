@@ -2,7 +2,7 @@ from django.shortcuts import render
 import openai
 
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 def chatbot(prompt):
