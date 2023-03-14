@@ -1,4 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+
 import openai
 from dotenv import load_dotenv
 import os
@@ -26,9 +31,33 @@ def chatbot(prompt):
     return response.choices[0].text.strip()
 
 
+@login_required
 def chatbot_view(request):
     chatbot_response = ""
+    chatlogs = request.session.get('chatlogs', [])
+
     if request.method == 'POST':
         question = request.POST.get('question')
         chatbot_response = chatbot(question)
-    return render(request, 'index.html', {'chatbot_response': chatbot_response})
+        chatlogs.append({'user': question, 'chatbot': chatbot_response})
+        request.session['chatlogs'] = chatlogs
+
+    return render(request, 'index.html', {'chatlogs': chatlogs})
+
+
+def clear_chatlog(request):
+    if 'chatlogs' in request.session:
+        del request.session['chatlogs']
+    return redirect('chatbot_view')  # Replace 'chatbot_view' with the name of your chatbot_view URL pattern
+
+    
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('chatbot_view')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})

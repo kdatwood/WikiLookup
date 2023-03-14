@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Chatbot</title>
-    <!-- load Bootstrap CSS from a static css-->
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
-    <style>
-      .center {
-        text-align: center;
-      }
-      #chat-form {
-        margin-bottom: 50px;
-      }
-      #chatbot-response {
-        margin-top: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="mt-5 center">Chat Bot</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-5 center">Chat Bot</h1>
+
+    {% if user.is_authenticated %}
       <div class="row justify-content-center">
         <div class="col-md-8">
           <form method="post" id="chat-form">
@@ -38,21 +23,34 @@
           </form>
         </div>
       </div>
-      <div class="row justify-content-center">
+
+      {% if chatlogs %}
+      <div class="row justify-content-center mt-5">
         <div class="col-md-8">
-          {% if chatbot_response %}
-          <div class="card" id="chatbot-response">
-            <div class="card-body">
-              <h2 class="card-title">Chatbot Response</h2>
-              <p class="card-text">{{ chatbot_response }}</p>
+          <div class="card">
+            <div class="card-header">
+              Chat Logs
+              <form method="post" action="{% url 'clear_chatlog' %}" class="float-right">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Clear Chat Log</button>
+              </form>
             </div>
+            <ul class="list-group list-group-flush">
+              {% for log in chatlogs %}
+              <li class="list-group-item">
+                <strong>User:</strong> {{ log.user }}<br>
+                <strong>Chatbot:</strong> {{ log.chatbot }}
+              </li>
+              {% endfor %}
+            </ul>
           </div>
-          {% endif %}
         </div>
       </div>
-    </div>
-    <!-- load jQuery and Bootstrap JS from static js -->
-    <script src="/static/js/jquery-3.5.1.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-  </body>
-</html>
+      {% endif %}
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        Please log in to use the chatbot and view chat logs.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
